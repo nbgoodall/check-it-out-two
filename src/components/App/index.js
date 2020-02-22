@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
+
 import "./App.css";
 import Display from "../Display";
 import FrameButtons from "../FrameButtons";
 
-const initialState = new Array(30).fill(new Array(50).fill("#ffffff"));
+const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
 
 function App() {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [display, setDisplay] = useState(initialState);
   const [frames, setFrames] = useState([]);
+
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [color, setColor] = useState("#000000");
 
@@ -23,7 +26,7 @@ function App() {
 
   useEffect(() => {
     let id;
-    if (isAnimating) {
+    if (isAnimating && !isRecording) {
       id = setTimeout(() => {
         if (currentFrameIndex < frames.length - 1) {
           setCurrentFrameIndex(currentFrameIndex + 1);
@@ -35,7 +38,7 @@ function App() {
     return () => {
       clearInterval(id);
     };
-  }, [isAnimating, currentFrameIndex]);
+  }, [isAnimating, currentFrameIndex, frames, isRecording]);
 
   useEffect(() => {
     if (frames.length) {
@@ -43,15 +46,25 @@ function App() {
     }
   }, [currentFrameIndex]);
 
+  useEffect(() => {
+    setDisplay(initialState);
+  }, [frames]);
+
   function saveFrame() {
     setFrames([...frames, display]);
-    setDisplay(initialState);
   }
+
   function clear() {
     setFrames([]);
     setCurrentFrameIndex(0);
     setDisplay(initialState);
   }
+  function startRecording() {
+    if (frames.length) {
+      setIsRecording(true);
+    }
+  }
+
   return (
     <div
       className="App"
@@ -66,8 +79,11 @@ function App() {
           color={color}
           handleClick={handleClick}
           active={true}
+          isRecording={isRecording}
+          setIsRecording={setIsRecording}
+          frames={frames}
         />
-        {!isAnimating && frames.length > 0 && (
+        {!isAnimating && !isRecording && frames.length > 0 && (
           <Display
             className={"onion-container"}
             display={frames[frames.length - 1]}
@@ -89,6 +105,7 @@ function App() {
           {isAnimating ? "Stop" : "Play"}
         </button>
         <button onClick={clear}>CLEAR</button>
+        <button onClick={startRecording}>Capture</button>
       </div>
     </div>
   );
