@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Display from "../Display";
+import FrameButtons from "../FrameButtons";
 
 const initialState = new Array(30).fill(new Array(50).fill("#ffffff"));
 
@@ -73,13 +74,11 @@ function App() {
           />
         )}
       </div>
+      <FrameButtons
+        frames={frames}
+        setCurrentFrameIndex={setCurrentFrameIndex}
+      />
       <div>
-        {frames.map((_, i) => (
-          <button key={i} onClick={() => setCurrentFrameIndex(i)}>
-            frame {i + 1}
-          </button>
-        ))}
-        <br />
         <button onClick={saveFrame}>Add Frame</button>
         <input
           type="color"
