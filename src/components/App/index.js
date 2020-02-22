@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     let id;
     if (isAnimating) {
-      setTimeout(() => {
+      id = setTimeout(() => {
         if (currentFrameIndex < frames.length - 1) {
           setCurrentFrameIndex(currentFrameIndex + 1);
           return;
