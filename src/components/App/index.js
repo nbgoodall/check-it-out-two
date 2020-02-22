@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "./App.css";
 import Display from "../Display";
 import FrameButtons from "../FrameButtons";
+import useGifRecorder from "../../hooks/useGifRecorder";
 
 const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
 
 function App() {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
   const [display, setDisplay] = useState(initialState);
-  const [frames, setFrames] = useState([]);
-
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [color, setColor] = useState("#000000");
+  const [frames, setFrames] = useState([]);
+  const render = useGifRecorder();
 
   function handleClick(x, y) {
     setDisplay([
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     let id;
-    if (isAnimating && !isRecording) {
+    if (isAnimating) {
       id = setTimeout(() => {
         if (currentFrameIndex < frames.length - 1) {
           setCurrentFrameIndex(currentFrameIndex + 1);
@@ -38,7 +38,7 @@ function App() {
     return () => {
       clearInterval(id);
     };
-  }, [isAnimating, currentFrameIndex, frames, isRecording]);
+  }, [isAnimating, currentFrameIndex, frames]);
 
   useEffect(() => {
     if (frames.length) {
@@ -59,11 +59,6 @@ function App() {
     setCurrentFrameIndex(0);
     setDisplay(initialState);
   }
-  function startRecording() {
-    if (frames.length) {
-      setIsRecording(true);
-    }
-  }
 
   return (
     <div
@@ -79,11 +74,8 @@ function App() {
           color={color}
           handleClick={handleClick}
           active={true}
-          isRecording={isRecording}
-          setIsRecording={setIsRecording}
-          frames={frames}
         />
-        {!isAnimating && !isRecording && frames.length > 0 && (
+        {!isAnimating && frames.length > 0 && (
           <Display
             className={"onion-container"}
             display={frames[frames.length - 1]}
@@ -105,7 +97,7 @@ function App() {
           {isAnimating ? "Stop" : "Play"}
         </button>
         <button onClick={clear}>CLEAR</button>
-        <button onClick={startRecording}>Capture</button>
+        <button onClick={() => render(frames)}>Capture</button>
       </div>
     </div>
   );
