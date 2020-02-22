@@ -1,0 +1,31 @@
+.pixel {
+  --size: 20px;
+  background-color: var(--color);
+  height: var(--size);
+  width: var(--size);
+}
+
+.row {
+  display: flex;
+  --color: "pink";
+}
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.display-container {
+  position: relative;
+}
+.active-container {
+  border: 10px dashed yellow;
+}
+.onion-container {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  border: 10px solid rgba(0, 0, 0, 0);
+}
