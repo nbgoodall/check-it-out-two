@@ -2,7 +2,7 @@ import html2canvas from "html2canvas";
 import GIF from "gif.js.optimized";
 
 function useGifRecorder() {
-  async function createGif(canvases) {
+  async function createGif(canvases, frameRate) {
     if (!canvases.length) return;
     var gif = new GIF({
       workers: 2,
@@ -11,7 +11,7 @@ function useGifRecorder() {
       height: canvases[0].height
     });
     canvases.forEach((canvas, i) => {
-      gif.addFrame(canvas);
+      gif.addFrame(canvas, { delay: frameRate });
     });
     gif.on("finished", function(blob) {
       const url = window.URL.createObjectURL(blob);
@@ -25,7 +25,7 @@ function useGifRecorder() {
     });
     gif.render();
   }
-  async function render(frames) {
+  async function render(frames, frameRate) {
     const canvases = await Promise.all(
       frames.map((frame, i) => {
         const container = document.createElement("div");
@@ -53,7 +53,7 @@ function useGifRecorder() {
         return canvas;
       })
     );
-    createGif(canvases);
+    createGif(canvases, frameRate);
   }
 
   return render;

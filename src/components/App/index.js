@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import Display from "../Display";
@@ -14,6 +14,7 @@ function App() {
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [color, setColor] = useState("#000000");
   const [frames, setFrames] = useState([]);
+  const [frameRate, setFrameRate] = useState(100);
   const render = useGifRecorder();
 
   function handleClick(x, y) {
@@ -33,12 +34,12 @@ function App() {
           return;
         }
         setCurrentFrameIndex(0);
-      }, 100);
+      }, frameRate);
     }
     return () => {
       clearInterval(id);
     };
-  }, [isAnimating, currentFrameIndex, frames]);
+  }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
   useEffect(() => {
     if (frames.length) {
@@ -52,6 +53,7 @@ function App() {
 
   function saveFrame() {
     setFrames([...frames, display]);
+    setCurrentFrameIndex(currentFrameIndex + 1);
   }
 
   function clear() {
@@ -85,6 +87,7 @@ function App() {
       <FrameButtons
         frames={frames}
         setCurrentFrameIndex={setCurrentFrameIndex}
+        currentFrameIndex={currentFrameIndex}
       />
       <div>
         <button onClick={saveFrame}>Add Frame</button>
@@ -97,7 +100,14 @@ function App() {
           {isAnimating ? "Stop" : "Play"}
         </button>
         <button onClick={clear}>CLEAR</button>
-        <button onClick={() => render(frames)}>Capture</button>
+        <button onClick={() => render(frames, frameRate)}>Capture</button>
+        <input
+          type="range"
+          value={frameRate}
+          min="100"
+          max="1000"
+          onChange={e => setFrameRate(e.target.value)}
+        ></input>
       </div>
     </div>
   );
