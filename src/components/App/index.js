@@ -56,8 +56,8 @@ function App() {
 
           return;
         }
-
         setState({ currentFrameIndex: 0 })
+
       }, frameRate);
     }
     return () => {
