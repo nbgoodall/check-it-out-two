@@ -1,11 +1,17 @@
 .button {
   border: 3px solid var(--color, #00000047);
-  width: calc(2px * var(--columns));
-  height: calc(2px * var(--rows));
+  min-width: 40px;
+  height: 40px;
   padding: 0;
   box-sizing: initial;
-  margin: 2px;
+  margin: 5px 2px;
 }
-.frameDisplay > div > div {
-  --size: 2px;
+
+.button:focus {
+  outline: none;
+}
+
+.frameDisplay {
+  width: auto;
+  height: 40px;
 }

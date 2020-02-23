@@ -3,19 +3,13 @@ import React from "react";
 import css from "./FrameButtons.module.css";
 import FrameButton from "../FrameButton";
 
-function FrameButtons({ frames, setCurrentFrameIndex, currentFrameIndex }) {
-  const rows = frames.length && frames[0].length;
-  const columns = frames.length && frames[0][0].length;
-
+function FrameButtons({ images, setCurrentFrameIndex, currentFrameIndex }) {
   return (
-    <div
-      className={css.buttonContainer}
-      style={{ "--rows": rows, "--columns": columns }}
-    >
-      {frames.map((frame, i) => (
+    <div className={css.buttonContainer}>
+      {images.map((image, i) => (
         <FrameButton
-          key={`${frame}${i}`}
-          frame={frame}
+          key={i}
+          image={image}
           i={i}
           setCurrentFrameIndex={setCurrentFrameIndex}
           currentFrameIndex={currentFrameIndex}

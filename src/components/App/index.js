@@ -10,6 +10,8 @@ import loadingGif from "../../assets/loading.gif";
 
 const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("transparent"));
 
+const BLANK_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+
 function App() {
   const [state, setState] = useEpicState({
     isMouseDown: false,
@@ -18,6 +20,7 @@ function App() {
     selectionColor: "#000000",
     color: "#000000",
     frames: [BLANK_DISPLAY],
+    frameImages: [BLANK_IMAGE],
     frameRate: 100
   });
 
@@ -28,9 +31,9 @@ function App() {
     selectionColor,
     color,
     frames,
+    frameImages,
     frameRate
   } = state;
-
 
   const { status, isRendering, render } = useGifRenderer();
 
@@ -48,12 +51,22 @@ function App() {
     })
   }
 
+  function setCurrentFrameImage(image) {
+    return setState({
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex),
+        image,
+        ...frameImages.slice(currentFrameIndex + 1)
+      ]
+    })
+  }
+
   function handleClick(x, y) {
     const display = frames[currentFrameIndex]
 
     let newColor = display[y][x] === color ? "transparent" : color;
 
-    if (isMouseDown && !selectionColor) {
+    if (!isMouseDown && !selectionColor) {
       setState({ selectionColor: newColor });
     }
 
@@ -90,14 +103,17 @@ function App() {
   function addFrame() {
     setState({
       frames: [...frames, BLANK_DISPLAY],
+      frameImages: [...frameImages, BLANK_IMAGE],
       currentFrameIndex: frames.length
-    });
+    })
   }
+
 
   function duplicateFrame() {
     setState({
       frames: [...frames, frames[currentFrameIndex]],
-      currentFrameIndex: currentFrameIndex + 1
+      frameImages: [...frameImages, frameImages[currentFrameIndex]],
+      currentFrameIndex: frames.length
     });
   }
 
@@ -107,6 +123,7 @@ function App() {
     if (window.confirm(confirmText)) {
       setState({
         frames: [BLANK_DISPLAY],
+        frameImages: [BLANK_IMAGE],
         currentFrameIndex: 0
       })
     }
@@ -114,6 +131,7 @@ function App() {
 
   function clear() {
     setCurrentFrame(BLANK_DISPLAY)
+    setCurrentFrameImage(BLANK_IMAGE)
   }
 
   return (
@@ -127,23 +145,24 @@ function App() {
         <h1>{status}</h1>
       </dialog>
       <div className="display-container">
-        {!isAnimating && frames.length > 1 && currentFrameIndex > 0 && (
-          <Display
+        {!isAnimating && frames.length > 1 && currentFrameIndex > 0 &&
+          <img
             className="onion-container"
-            display={frames[currentFrameIndex - 1]}
+            src={ frameImages[currentFrameIndex - 1] }
+            style={{ width: '400px', height: '400px', opacity: 0.3 }}
           />
-        )}
+        }
+
         <Display
           className="active-container"
-          display={frames[currentFrameIndex]}
+          display={ frames[currentFrameIndex] }
           color={color}
-          isMouseDown={isMouseDown}
           handleClick={handleClick}
-          active={true}
+          saveImage={setCurrentFrameImage}
         />
       </div>
       <FrameButtons
-        frames={frames}
+        images={frameImages}
         setCurrentFrameIndex={index => setState({ currentFrameIndex: index })}
         currentFrameIndex={currentFrameIndex}
       />

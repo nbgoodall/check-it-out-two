@@ -19,6 +19,8 @@
 }
 .display-container {
   position: relative;
+  /*box-sizing: border-box;*/
+
 }
 .active-container {
   border: 10px dashed yellow;
@@ -27,12 +29,7 @@
   position: absolute;
   top: 0;
   pointer-events: none;
-  /*opacity: 0.3;*/
   border: 10px solid rgba(0, 0, 0, 0);
-}
-
-.onion-container .pixel {
-  opacity: 0.3;
 }
 
 .loading-dialog {
