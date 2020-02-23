@@ -5,6 +5,7 @@ import Display from "../Display";
 import FrameButtons from "../FrameButtons";
 import useGifRenderer from "../../libs/hooks/useGifRenderer";
 import useEpicState from "../../libs/hooks/useEpicState";
+import reorderArray from "../../libs/utils/reorderArray";
 
 import loadingGif from "../../assets/loading.gif";
 
@@ -103,7 +104,7 @@ function App() {
     };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
-  function addFrame({ duplicate }) {
+  function addFrame({ duplicate } = {}) {
     setState({
       frames: [
         ...frames.slice(0, currentFrameIndex + 1),
@@ -118,6 +119,42 @@ function App() {
       currentFrameIndex: currentFrameIndex + 1
     });
   }
+
+  function reorderFrames(index, position) {
+    let newFrameIndex = currentFrameIndex
+
+    if (position <= currentFrameIndex && index > currentFrameIndex) {
+      newFrameIndex++
+    }
+
+    if (index < currentFrameIndex) {
+      newFrameIndex--
+    }
+    else if (index === currentFrameIndex) {
+      newFrameIndex = position
+    }
+
+    return setState({
+      frames: reorderArray(frames, index, position),
+      frameImages: reorderArray(frameImages, index, position),
+      currentFrameIndex: newFrameIndex
+    })
+  }
+
+  function deleteFrame() {
+    setState({
+      frames: [
+        ...frames.slice(0, currentFrameIndex),
+        ...frames.slice(currentFrameIndex + 1)
+      ],
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex),
+        ...frameImages.slice(currentFrameIndex + 1)
+      ],
+      currentFrameIndex: Math.max(0, currentFrameIndex - 1)
+    })
+  }
+
 
   function confirmReset() {
     let confirmText = "Are you sure? This will reset e-v-e-r-y-t-h-i-n-g.";
@@ -168,12 +205,14 @@ function App() {
         />
       </div>
       <FrameButtons
+        reorder={reorderFrames}
         images={frameImages}
         setCurrentFrameIndex={index => setState({ currentFrameIndex: index })}
         currentFrameIndex={currentFrameIndex}
       />
       <div>
-        <button onClick={() => addFrame({})}>Add Frame</button>
+        <button onClick={addFrame}>Add Frame</button>
+        <button onClick={ frames.length > 1 ? deleteFrame : clear }>Delete Frame</button>
         <button onClick={() => addFrame({ duplicate: true })}>Duplicate</button>
         <input
           type="color"
