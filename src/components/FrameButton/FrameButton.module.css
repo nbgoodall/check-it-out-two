@@ -1,0 +1,11 @@
+.button {
+  border: 3px solid var(--color, #00000047);
+  width: calc(2px * var(--columns));
+  height: calc(2px * var(--rows));
+  padding: 0;
+  box-sizing: initial;
+  margin: 2px;
+}
+.frameDisplay > div > div {
+  --size: 2px;
+}
