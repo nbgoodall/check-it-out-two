@@ -3,52 +3,88 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Display from "../Display";
 import FrameButtons from "../FrameButtons";
-import render from "../../libs/utils/renderGif";
+import useGifRenderer from "../../libs/hooks/useGifRenderer";
 import useEpicState from "../../libs/hooks/useEpicState";
+import reorderArray from "../../libs/utils/reorderArray";
 
-const initialState = new Array(20).fill(new Array(30).fill("#ffffff"));
+import loadingGif from "../../assets/loading.gif";
+
+const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("#ffffffff"));
+
+const BLANK_IMAGE =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 
 function App() {
   const [state, setState] = useEpicState({
     isMouseDown: false,
     isAnimating: false,
-    display: initialState,
+    isOnionOn: true,
     currentFrameIndex: 0,
     selectionColor: "#000000",
     color: "#000000",
-    frames: [],
+    frames: [BLANK_DISPLAY],
+    frameImages: [BLANK_IMAGE],
     frameRate: 100
   });
 
   const {
     isMouseDown,
     isAnimating,
-    display,
+    isOnionOn,
     currentFrameIndex,
     selectionColor,
     color,
     frames,
+    frameImages,
     frameRate
   } = state;
 
-  function handleClick(x, y) {
-    let newColor = display[y][x] === color ? "#FFFFFF" : color;
+  const { status, isRendering, render } = useGifRenderer();
 
-    if (isMouseDown && !selectionColor) {
+  useEffect(() => {
+    console.log({ status, isRendering });
+  }, [status]);
+
+  function setCurrentFrame(frame) {
+    return setState({
+      frames: [
+        ...frames.slice(0, currentFrameIndex),
+        frame,
+        ...frames.slice(currentFrameIndex + 1)
+      ]
+    });
+  }
+
+  function setCurrentFrameImage(image) {
+    return setState({
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex),
+        image,
+        ...frameImages.slice(currentFrameIndex + 1)
+      ]
+    });
+  }
+
+  function handleClick(x, y) {
+    const display = frames[currentFrameIndex];
+
+    let newColor = display[y][x] === color ? "#ffffffff" : color;
+
+    if (!isMouseDown && !selectionColor) {
       setState({ selectionColor: newColor });
     }
 
-    setState({
-      display: [
-        ...display.slice(0, y),
-        [
-          ...display[y].slice(0, x),
-          selectionColor || newColor,
-          ...display[y].slice(x + 1)
-        ],
-        ...display.slice(y + 1)
-      ]
-    });
+    const nextDisplay = [
+      ...display.slice(0, y),
+      [
+        ...display[y].slice(0, x),
+        selectionColor || newColor,
+        ...display[y].slice(x + 1)
+      ],
+      ...display.slice(y + 1)
+    ];
+
+    return setCurrentFrame(nextDisplay);
   }
 
   useEffect(() => {
@@ -68,29 +104,73 @@ function App() {
     };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
-  useEffect(() => {
-    if (frames.length) {
-      setState({ display: frames[currentFrameIndex] });
-    }
-  }, [currentFrameIndex, frames]);
-
-  useEffect(() => {
-    setState({ display: initialState });
-  }, [frames]);
-
-  function saveFrame() {
+  function addFrame({ duplicate } = {}) {
     setState({
-      frames: [...frames, display],
+      frames: [
+        ...frames.slice(0, currentFrameIndex + 1),
+        duplicate ? frames[currentFrameIndex] : BLANK_DISPLAY,
+        ...frames.slice(currentFrameIndex + 1)
+      ],
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex + 1),
+        duplicate ? frameImages[currentFrameIndex] : BLANK_IMAGE,
+        ...frameImages.slice(currentFrameIndex + 1)
+      ],
       currentFrameIndex: currentFrameIndex + 1
     });
   }
 
-  function clear() {
+  function reorderFrames(index, position) {
+    let newFrameIndex = currentFrameIndex
+
+    if (position <= currentFrameIndex && index > currentFrameIndex) {
+      newFrameIndex++
+    }
+
+    if (index < currentFrameIndex) {
+      newFrameIndex--
+    }
+    else if (index === currentFrameIndex) {
+      newFrameIndex = position
+    }
+
+    return setState({
+      frames: reorderArray(frames, index, position),
+      frameImages: reorderArray(frameImages, index, position),
+      currentFrameIndex: newFrameIndex
+    })
+  }
+
+  function deleteFrame() {
     setState({
-      frames: [],
-      currentFrameIndex: 0,
-      display: initialState
-    });
+      frames: [
+        ...frames.slice(0, currentFrameIndex),
+        ...frames.slice(currentFrameIndex + 1)
+      ],
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex),
+        ...frameImages.slice(currentFrameIndex + 1)
+      ],
+      currentFrameIndex: Math.max(0, currentFrameIndex - 1)
+    })
+  }
+
+
+  function confirmReset() {
+    let confirmText = "Are you sure? This will reset e-v-e-r-y-t-h-i-n-g.";
+
+    if (window.confirm(confirmText)) {
+      setState({
+        frames: [BLANK_DISPLAY],
+        frameImages: [BLANK_IMAGE],
+        currentFrameIndex: 0
+      });
+    }
+  }
+
+  function clear() {
+    setCurrentFrame(BLANK_DISPLAY);
+    setCurrentFrameImage(BLANK_IMAGE);
   }
 
   return (
@@ -99,29 +179,41 @@ function App() {
       onMouseDown={() => setState({ isMouseDown: true })}
       onMouseUp={() => setState({ isMouseDown: false, selectionColor: null })}
     >
+      <dialog className="loading-dialog" open={isRendering}>
+        <img alt="loading" src={loadingGif} />
+        <h1>{status}</h1>
+      </dialog>
       <div className="display-container">
+        {isOnionOn &&
+          !isAnimating &&
+          frames.length > 1 &&
+          currentFrameIndex > 0 && (
+            <img
+              className="onion-container"
+              alt="ghostly previous frame"
+              src={frameImages[currentFrameIndex - 1]}
+              style={{ width: "400px", height: "400px", opacity: 0.3 }}
+            />
+          )}
+
         <Display
-          className={"active-container"}
-          display={display}
+          className="active-container"
+          display={frames[currentFrameIndex]}
           color={color}
-          isMouseDown={isMouseDown}
           handleClick={handleClick}
-          active={true}
+          saveImage={setCurrentFrameImage}
         />
-        {!isAnimating && frames.length > 0 && (
-          <Display
-            className={"onion-container"}
-            display={frames[frames.length - 1]}
-          />
-        )}
       </div>
       <FrameButtons
-        frames={frames}
+        reorder={reorderFrames}
+        images={frameImages}
         setCurrentFrameIndex={index => setState({ currentFrameIndex: index })}
         currentFrameIndex={currentFrameIndex}
       />
       <div>
-        <button onClick={saveFrame}>Add Frame</button>
+        <button onClick={addFrame}>Add Frame</button>
+        <button onClick={ frames.length > 1 ? deleteFrame : clear }>Delete Frame</button>
+        <button onClick={() => addFrame({ duplicate: true })}>Duplicate</button>
         <input
           type="color"
           value={color}
@@ -130,8 +222,9 @@ function App() {
         <button onClick={() => setState({ isAnimating: !isAnimating })}>
           {isAnimating ? "Stop" : "Play"}
         </button>
-        <button onClick={clear}>CLEAR</button>
-        <button onClick={() => render(frames, frameRate)}>Capture</button>
+        <button onClick={clear}>Clear</button>
+        <button onClick={confirmReset}>Reset</button>
+        <button onClick={() => render(frameImages, frameRate)}>Capture</button>
         <input
           type="range"
           value={frameRate}
@@ -139,6 +232,12 @@ function App() {
           max="1000"
           onChange={e => setState({ frameRate: e.target.value })}
         ></input>
+        <button
+          onClick={() => setState({ isOnionOn: !isOnionOn })}
+          className={isOnionOn ? "onion-button-on" : "onion-button-off"}
+        >
+          Onion
+        </button>
       </div>
     </div>
   );
