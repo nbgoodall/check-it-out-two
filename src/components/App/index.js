@@ -3,14 +3,12 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Display from "../Display";
 import FrameButtons from "../FrameButtons";
-import useGifRecorder from "../../hooks/useGifRecorder";
-import useEpicState from "../../hooks/useEpicState"
+import render from "../../libs/utils/renderGif";
+import useEpicState from "../../libs/hooks/useEpicState";
 
-const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
+const initialState = new Array(20).fill(new Array(30).fill("#ffffff"));
 
 function App() {
-  const render = useGifRecorder();
-
   const [state, setState] = useEpicState({
     isMouseDown: false,
     isAnimating: false,
@@ -20,7 +18,7 @@ function App() {
     color: "#000000",
     frames: [],
     frameRate: 100
-  })
+  });
 
   const {
     isMouseDown,
@@ -31,20 +29,26 @@ function App() {
     color,
     frames,
     frameRate
-  } = state
+  } = state;
 
   function handleClick(x, y) {
     let newColor = display[y][x] === color ? "#FFFFFF" : color;
 
     if (isMouseDown && !selectionColor) {
-      setState({ selectionColor: newColor })
+      setState({ selectionColor: newColor });
     }
 
-    setState({ display: [
-      ...display.slice(0, y),
-      [...display[y].slice(0, x), selectionColor || newColor, ...display[y].slice(x + 1)],
-      ...display.slice(y + 1)
-    ]});
+    setState({
+      display: [
+        ...display.slice(0, y),
+        [
+          ...display[y].slice(0, x),
+          selectionColor || newColor,
+          ...display[y].slice(x + 1)
+        ],
+        ...display.slice(y + 1)
+      ]
+    });
   }
 
   useEffect(() => {
@@ -52,12 +56,11 @@ function App() {
     if (isAnimating) {
       id = setTimeout(() => {
         if (currentFrameIndex < frames.length - 1) {
-          setState({ currentFrameIndex: currentFrameIndex + 1 })
+          setState({ currentFrameIndex: currentFrameIndex + 1 });
 
           return;
         }
-        setState({ currentFrameIndex: 0 })
-
+        setState({ currentFrameIndex: 0 });
       }, frameRate);
     }
     return () => {
@@ -76,7 +79,10 @@ function App() {
   }, [frames]);
 
   function saveFrame() {
-    setState({ frames: [...frames, display], currentFrameIndex: currentFrameIndex + 1 });
+    setState({
+      frames: [...frames, display],
+      currentFrameIndex: currentFrameIndex + 1
+    });
   }
 
   function clear() {
@@ -84,21 +90,21 @@ function App() {
       frames: [],
       currentFrameIndex: 0,
       display: initialState
-    })
+    });
   }
 
   return (
     <div
       className="App"
-      onMouseDown={() => setState({ isMouseDown: true }) }
-      onMouseUp={() => setState({ isMouseDown: false, selectionColor: null }) }
+      onMouseDown={() => setState({ isMouseDown: true })}
+      onMouseUp={() => setState({ isMouseDown: false, selectionColor: null })}
     >
       <div className="display-container">
         <Display
           className={"active-container"}
           display={display}
-          isMouseDown={isMouseDown}
           color={color}
+          isMouseDown={isMouseDown}
           handleClick={handleClick}
           active={true}
         />
@@ -111,7 +117,7 @@ function App() {
       </div>
       <FrameButtons
         frames={frames}
-        setCurrentFrameIndex={ index => setState({ currentFrameIndex: index }) }
+        setCurrentFrameIndex={index => setState({ currentFrameIndex: index })}
         currentFrameIndex={currentFrameIndex}
       />
       <div>
@@ -121,7 +127,7 @@ function App() {
           value={color}
           onChange={e => setState({ color: e.target.value })}
         ></input>
-        <button onClick={() => setState({ isAnimating: !isAnimating }) }>
+        <button onClick={() => setState({ isAnimating: !isAnimating })}>
           {isAnimating ? "Stop" : "Play"}
         </button>
         <button onClick={clear}>CLEAR</button>
