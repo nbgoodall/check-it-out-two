@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Display from "../Display";
 import FrameButtons from "../FrameButtons";
-import useGifRecorder from "../../hooks/useGifRecorder";
+import render from "../../libs/utils/renderGif";
 
-const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
+const initialState = new Array(20).fill(new Array(30).fill("#ffffff"));
 
 function App() {
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -15,7 +15,6 @@ function App() {
   const [color, setColor] = useState("#000000");
   const [frames, setFrames] = useState([]);
   const [frameRate, setFrameRate] = useState(100);
-  const render = useGifRecorder();
 
   function handleClick(x, y) {
     setDisplay([
@@ -72,8 +71,8 @@ function App() {
         <Display
           className={"active-container"}
           display={display}
-          isMouseDown={isMouseDown}
           color={color}
+          isMouseDown={isMouseDown}
           handleClick={handleClick}
           active={true}
         />
