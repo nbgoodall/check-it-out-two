@@ -17,9 +17,7 @@ function useGifRenderer() {
       workers: 2,
       quality: 10,
       width: canvases[0].width,
-      height: canvases[0].height,
-      background: "#ffffff",
-      transparent: "#ffffff"
+      height: canvases[0].height
     });
 
     canvases.forEach(img => {
@@ -47,7 +45,7 @@ function useGifRenderer() {
     const images = await Promise.all(
       frameImages.map(frameImage => {
         return new Promise((resolve, reject) => {
-          const img = new Image();
+          const img = document.createElement("img");
           img.src = frameImage;
           img.onload = function() {
             resolve(this);

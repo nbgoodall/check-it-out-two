@@ -8,7 +8,7 @@ import useEpicState from "../../libs/hooks/useEpicState";
 
 import loadingGif from "../../assets/loading.gif";
 
-const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("transparent"));
+const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("#ffffffff"));
 
 const BLANK_IMAGE =
   "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
