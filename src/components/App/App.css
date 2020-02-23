@@ -9,6 +9,7 @@
   display: flex;
   --color: "pink";
 }
+
 .App {
   display: flex;
   justify-content: center;
