@@ -4,6 +4,7 @@ function Display({ isMouseDown, display, handleClick, className, active }) {
   function handleMouseEvent(x, y) {
     active && handleClick(x, y);
   }
+
   return (
     <div className={className}>
       {display.map((row, y) => (
@@ -15,7 +16,7 @@ function Display({ isMouseDown, display, handleClick, className, active }) {
               style={{ "--color": color }}
               onMouseEnter={ e => isMouseDown && handleMouseEvent(x, y) }
               onMouseDown={() => handleMouseEvent(x, y)}
-            ></div>
+            />
           ))}
         </div>
       ))}
