@@ -12,15 +12,20 @@ function useGifRenderer() {
   async function createGif(canvases, frameRate) {
     if (!canvases.length) return;
     setState({ status: "creating gif" });
+
     var gif = new GIF({
       workers: 2,
       quality: 10,
       width: canvases[0].width,
-      height: canvases[0].height
+      height: canvases[0].height,
+      background: "#ffffff",
+      transparent: "#ffffff"
     });
-    canvases.forEach((canvas, i) => {
-      gif.addFrame(canvas, { delay: frameRate });
+
+    canvases.forEach(img => {
+      console.log(gif.addFrame(img, { delay: frameRate }));
     });
+
     gif.on("finished", function(blob) {
       setState({ status: "downloading" });
       const url = window.URL.createObjectURL(blob);
@@ -37,34 +42,23 @@ function useGifRenderer() {
     gif.render();
   }
 
-  async function render(frames, frameRate) {
-    setState({ status: "creating canvases", isRendering: true });
-    const canvases = await Promise.all(
-      frames.map((frame, i) => {
-        const container = document.createElement("div");
-        container.classList.add("App");
-        const div = document.createElement("div");
-        div.classList.add(`frame${i}`);
-        div.classList.add(`active-container`);
-        frame.forEach(row => {
-          const rowDiv = document.createElement("div");
-          rowDiv.classList.add("row");
-          row.forEach(color => {
-            const pixel = document.createElement("div");
-            pixel.classList.add("pixel");
-            pixel.style.backgroundColor = color;
-            rowDiv.appendChild(pixel);
-          });
-          div.appendChild(rowDiv);
+  async function render(frameImages, frameRate) {
+    setState({ status: "creating images", isRendering: true });
+    const images = await Promise.all(
+      frameImages.map(frameImage => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = frameImage;
+          img.onload = function() {
+            resolve(this);
+          };
+          img.onerror = function() {
+            reject("error loading image");
+          };
         });
-        container.appendChild(div);
-        document.body.appendChild(container);
-        const canvas = html2canvas(document.querySelector(`.frame${i}`));
-        document.body.removeChild(container);
-        return canvas;
       })
     );
-    createGif(canvases, frameRate);
+    createGif(images, frameRate);
   }
   return { ...state, render };
 }

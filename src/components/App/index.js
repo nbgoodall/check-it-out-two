@@ -103,19 +103,19 @@ function App() {
     };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
-  function addFrame() {
+  function addFrame({ duplicate }) {
     setState({
-      frames: [...frames, BLANK_DISPLAY],
-      frameImages: [...frameImages, BLANK_IMAGE],
-      currentFrameIndex: frames.length
-    });
-  }
-
-  function duplicateFrame() {
-    setState({
-      frames: [...frames, frames[currentFrameIndex]],
-      frameImages: [...frameImages, frameImages[currentFrameIndex]],
-      currentFrameIndex: frames.length
+      frames: [
+        ...frames.slice(0, currentFrameIndex + 1),
+        duplicate ? frames[currentFrameIndex] : BLANK_DISPLAY,
+        ...frames.slice(currentFrameIndex + 1)
+      ],
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex + 1),
+        duplicate ? frameImages[currentFrameIndex] : BLANK_IMAGE,
+        ...frameImages.slice(currentFrameIndex + 1)
+      ],
+      currentFrameIndex: currentFrameIndex + 1
     });
   }
 
@@ -173,8 +173,8 @@ function App() {
         currentFrameIndex={currentFrameIndex}
       />
       <div>
-        <button onClick={addFrame}>Add Frame</button>
-        <button onClick={duplicateFrame}>Duplicate</button>
+        <button onClick={() => addFrame({})}>Add Frame</button>
+        <button onClick={() => addFrame({ duplicate: true })}>Duplicate</button>
         <input
           type="color"
           value={color}
@@ -185,7 +185,7 @@ function App() {
         </button>
         <button onClick={clear}>Clear</button>
         <button onClick={confirmReset}>Reset</button>
-        <button onClick={() => render(frames, frameRate)}>Capture</button>
+        <button onClick={() => render(frameImages, frameRate)}>Capture</button>
         <input
           type="range"
           value={frameRate}
