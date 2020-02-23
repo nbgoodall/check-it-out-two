@@ -87,9 +87,16 @@ function App() {
     };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
-  function saveFrame() {
+  function addFrame() {
     setState({
       frames: [...frames, BLANK_DISPLAY],
+      currentFrameIndex: frames.length
+    });
+  }
+
+  function duplicateFrame() {
+    setState({
+      frames: [...frames, frames[currentFrameIndex]],
       currentFrameIndex: currentFrameIndex + 1
     });
   }
@@ -141,7 +148,8 @@ function App() {
         currentFrameIndex={currentFrameIndex}
       />
       <div>
-        <button onClick={saveFrame}>Add Frame</button>
+        <button onClick={addFrame}>Add Frame</button>
+        <button onClick={duplicateFrame}>Duplicate</button>
         <input
           type="color"
           value={color}
