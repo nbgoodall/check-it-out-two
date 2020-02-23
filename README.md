@@ -10,7 +10,7 @@ A simple animation app built in react.
 ## Features
 
 - [x] Export as gif
-- [ ] rendering status while exporting
+- [x] rendering status while exporting
 - [x] Undo
 - [x] Change frame rate
 - [x] Edit an existing frame
@@ -18,10 +18,10 @@ A simple animation app built in react.
 - [ ] Change default color
 - [ ] Fork existing animation
 - [ ] Save
-- [ ] Delete frame
+- [x] Delete frame
 - [ ] copy/paste area of a frame
 - [ ] fill area of a frame
-- [ ] Move frame (drag & drop)
+- [x] Move frame (drag & drop)
 
 ## Examples
 
