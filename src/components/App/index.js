@@ -68,7 +68,7 @@ function App() {
   function handleClick(x, y) {
     const display = frames[currentFrameIndex];
 
-    let newColor = display[y][x] === color ? "transparent" : color;
+    let newColor = display[y][x] === color ? "#ffffffff" : color;
 
     if (!isMouseDown && !selectionColor) {
       setState({ selectionColor: newColor });
