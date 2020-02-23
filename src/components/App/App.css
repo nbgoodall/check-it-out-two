@@ -30,3 +30,15 @@
   opacity: 0.3;
   border: 10px solid rgba(0, 0, 0, 0);
 }
+
+.loading-dialog {
+  position: absolute;
+  width: 50vw;
+  z-index: 1000000;
+}
+.loading-dialog > img {
+  width: 100%;
+}
+.loading-dialog > h1 {
+  text-align: center;
+}
