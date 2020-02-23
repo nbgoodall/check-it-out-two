@@ -8,14 +8,16 @@ import useEpicState from "../../libs/hooks/useEpicState";
 
 import loadingGif from "../../assets/loading.gif";
 
-const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("transparent"));
+const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("#ffffffff"));
 
-const BLANK_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+const BLANK_IMAGE =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 
 function App() {
   const [state, setState] = useEpicState({
     isMouseDown: false,
     isAnimating: false,
+    isOnionOn: true,
     currentFrameIndex: 0,
     selectionColor: "#000000",
     color: "#000000",
@@ -27,6 +29,7 @@ function App() {
   const {
     isMouseDown,
     isAnimating,
+    isOnionOn,
     currentFrameIndex,
     selectionColor,
     color,
@@ -48,7 +51,7 @@ function App() {
         frame,
         ...frames.slice(currentFrameIndex + 1)
       ]
-    })
+    });
   }
 
   function setCurrentFrameImage(image) {
@@ -58,11 +61,11 @@ function App() {
         image,
         ...frameImages.slice(currentFrameIndex + 1)
       ]
-    })
+    });
   }
 
   function handleClick(x, y) {
-    const display = frames[currentFrameIndex]
+    const display = frames[currentFrameIndex];
 
     let newColor = display[y][x] === color ? "transparent" : color;
 
@@ -78,9 +81,9 @@ function App() {
         ...display[y].slice(x + 1)
       ],
       ...display.slice(y + 1)
-    ]
+    ];
 
-    return setCurrentFrame(nextDisplay)
+    return setCurrentFrame(nextDisplay);
   }
 
   useEffect(() => {
@@ -100,38 +103,37 @@ function App() {
     };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
-  function addFrame() {
+  function addFrame({ duplicate }) {
     setState({
-      frames: [...frames, BLANK_DISPLAY],
-      frameImages: [...frameImages, BLANK_IMAGE],
-      currentFrameIndex: frames.length
-    })
-  }
-
-
-  function duplicateFrame() {
-    setState({
-      frames: [...frames, frames[currentFrameIndex]],
-      frameImages: [...frameImages, frameImages[currentFrameIndex]],
-      currentFrameIndex: frames.length
+      frames: [
+        ...frames.slice(0, currentFrameIndex + 1),
+        duplicate ? frames[currentFrameIndex] : BLANK_DISPLAY,
+        ...frames.slice(currentFrameIndex + 1)
+      ],
+      frameImages: [
+        ...frameImages.slice(0, currentFrameIndex + 1),
+        duplicate ? frameImages[currentFrameIndex] : BLANK_IMAGE,
+        ...frameImages.slice(currentFrameIndex + 1)
+      ],
+      currentFrameIndex: currentFrameIndex + 1
     });
   }
 
   function confirmReset() {
-    let confirmText = "Are you sure? This will reset e-v-e-r-y-t-h-i-n-g."
+    let confirmText = "Are you sure? This will reset e-v-e-r-y-t-h-i-n-g.";
 
     if (window.confirm(confirmText)) {
       setState({
         frames: [BLANK_DISPLAY],
         frameImages: [BLANK_IMAGE],
         currentFrameIndex: 0
-      })
+      });
     }
   }
 
   function clear() {
-    setCurrentFrame(BLANK_DISPLAY)
-    setCurrentFrameImage(BLANK_IMAGE)
+    setCurrentFrame(BLANK_DISPLAY);
+    setCurrentFrameImage(BLANK_IMAGE);
   }
 
   return (
@@ -145,17 +147,21 @@ function App() {
         <h1>{status}</h1>
       </dialog>
       <div className="display-container">
-        {!isAnimating && frames.length > 1 && currentFrameIndex > 0 &&
-          <img
-            className="onion-container"
-            src={ frameImages[currentFrameIndex - 1] }
-            style={{ width: '400px', height: '400px', opacity: 0.3 }}
-          />
-        }
+        {isOnionOn &&
+          !isAnimating &&
+          frames.length > 1 &&
+          currentFrameIndex > 0 && (
+            <img
+              className="onion-container"
+              alt="ghostly previous frame"
+              src={frameImages[currentFrameIndex - 1]}
+              style={{ width: "400px", height: "400px", opacity: 0.3 }}
+            />
+          )}
 
         <Display
           className="active-container"
-          display={ frames[currentFrameIndex] }
+          display={frames[currentFrameIndex]}
           color={color}
           handleClick={handleClick}
           saveImage={setCurrentFrameImage}
@@ -167,8 +173,8 @@ function App() {
         currentFrameIndex={currentFrameIndex}
       />
       <div>
-        <button onClick={addFrame}>Add Frame</button>
-        <button onClick={duplicateFrame}>Duplicate</button>
+        <button onClick={() => addFrame({})}>Add Frame</button>
+        <button onClick={() => addFrame({ duplicate: true })}>Duplicate</button>
         <input
           type="color"
           value={color}
@@ -179,7 +185,7 @@ function App() {
         </button>
         <button onClick={clear}>Clear</button>
         <button onClick={confirmReset}>Reset</button>
-        <button onClick={() => render(frames, frameRate)}>Capture</button>
+        <button onClick={() => render(frameImages, frameRate)}>Capture</button>
         <input
           type="range"
           value={frameRate}
@@ -187,6 +193,12 @@ function App() {
           max="1000"
           onChange={e => setState({ frameRate: e.target.value })}
         ></input>
+        <button
+          onClick={() => setState({ isOnionOn: !isOnionOn })}
+          className={isOnionOn ? "onion-button-on" : "onion-button-off"}
+        >
+          Onion
+        </button>
       </div>
     </div>
   );
