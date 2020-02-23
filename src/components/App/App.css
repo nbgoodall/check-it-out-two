@@ -20,7 +20,6 @@
 .display-container {
   position: relative;
   /*box-sizing: border-box;*/
-
 }
 .active-container {
   border: 10px dashed yellow;
@@ -42,4 +41,12 @@
 }
 .loading-dialog > h1 {
   text-align: center;
+}
+
+.onion-button-on {
+  background-color: greenyellow;
+}
+.onion-button-off {
+  opacity: 0.5;
+  background-color: slategray;
 }
