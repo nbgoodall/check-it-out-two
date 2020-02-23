@@ -6,7 +6,7 @@ import FrameButtons from "../FrameButtons";
 import render from "../../libs/utils/renderGif";
 import useEpicState from "../../libs/hooks/useEpicState";
 
-const initialState = new Array(20).fill(new Array(30).fill("#ffffff"));
+const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
 
 function App() {
   const [state, setState] = useEpicState({

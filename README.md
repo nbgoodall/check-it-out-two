@@ -1,1 +1,25 @@
-![](https://user-images.githubusercontent.com/4060535/75101974-2e873380-55dc-11ea-8e27-19b4b50598a7.gif)
+# check-it-out-two
+
+A simple animation app built in react.
+
+## Contributers
+
+- mrbenbot
+- nbgoodall
+
+## Features
+
+- [x] Export as gif
+- [x] Undo
+- [x] Change frame rate
+- [ ] Edit an existing frame
+- [ ] Fork existing animation
+- [ ] Save
+- [ ] Delete frame
+- [ ] copy/paste area of a frame
+- [ ] fill area of a frame
+
+## Examples
+
+![](./readme_gifs/myGif.gif)
+![](./readme_gifs/finger.gif)
