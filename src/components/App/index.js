@@ -8,24 +8,22 @@ import useEpicState from "../../libs/hooks/useEpicState";
 
 import loadingGif from "../../assets/loading.gif";
 
-const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
+const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("transparent"));
 
 function App() {
   const [state, setState] = useEpicState({
     isMouseDown: false,
     isAnimating: false,
-    display: initialState,
     currentFrameIndex: 0,
     selectionColor: "#000000",
     color: "#000000",
-    frames: [],
+    frames: [BLANK_DISPLAY],
     frameRate: 100
   });
 
   const {
     isMouseDown,
     isAnimating,
-    display,
     currentFrameIndex,
     selectionColor,
     color,
@@ -33,30 +31,43 @@ function App() {
     frameRate
   } = state;
 
+
   const { status, isRendering, render } = useGifRenderer();
 
   useEffect(() => {
     console.log({ status, isRendering });
   }, [status]);
 
+  function setCurrentFrame(frame) {
+    return setState({
+      frames: [
+        ...frames.slice(0, currentFrameIndex),
+        frame,
+        ...frames.slice(currentFrameIndex + 1)
+      ]
+    })
+  }
+
   function handleClick(x, y) {
-    let newColor = display[y][x] === color ? "#FFFFFF" : color;
+    const display = frames[currentFrameIndex]
+
+    let newColor = display[y][x] === color ? "transparent" : color;
 
     if (isMouseDown && !selectionColor) {
       setState({ selectionColor: newColor });
     }
 
-    setState({
-      display: [
-        ...display.slice(0, y),
-        [
-          ...display[y].slice(0, x),
-          selectionColor || newColor,
-          ...display[y].slice(x + 1)
-        ],
-        ...display.slice(y + 1)
-      ]
-    });
+    const nextDisplay = [
+      ...display.slice(0, y),
+      [
+        ...display[y].slice(0, x),
+        selectionColor || newColor,
+        ...display[y].slice(x + 1)
+      ],
+      ...display.slice(y + 1)
+    ]
+
+    return setCurrentFrame(nextDisplay)
   }
 
   useEffect(() => {
@@ -76,29 +87,26 @@ function App() {
     };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
-  useEffect(() => {
-    if (frames.length) {
-      setState({ display: frames[currentFrameIndex] });
-    }
-  }, [currentFrameIndex, frames]);
-
-  useEffect(() => {
-    setState({ display: initialState });
-  }, [frames]);
-
   function saveFrame() {
     setState({
-      frames: [...frames, display],
+      frames: [...frames, BLANK_DISPLAY],
       currentFrameIndex: currentFrameIndex + 1
     });
   }
 
+  function confirmReset() {
+    let confirmText = "Are you sure? This will reset e-v-e-r-y-t-h-i-n-g."
+
+    if (window.confirm(confirmText)) {
+      setState({
+        frames: [BLANK_DISPLAY],
+        currentFrameIndex: 0
+      })
+    }
+  }
+
   function clear() {
-    setState({
-      frames: [],
-      currentFrameIndex: 0,
-      display: initialState
-    });
+    setCurrentFrame(BLANK_DISPLAY)
   }
 
   return (
@@ -112,20 +120,20 @@ function App() {
         <h1>{status}</h1>
       </dialog>
       <div className="display-container">
+        {!isAnimating && frames.length > 1 && currentFrameIndex > 0 && (
+          <Display
+            className="onion-container"
+            display={frames[currentFrameIndex - 1]}
+          />
+        )}
         <Display
-          className={"active-container"}
-          display={display}
+          className="active-container"
+          display={frames[currentFrameIndex]}
           color={color}
           isMouseDown={isMouseDown}
           handleClick={handleClick}
           active={true}
         />
-        {!isAnimating && frames.length > 0 && (
-          <Display
-            className={"onion-container"}
-            display={frames[frames.length - 1]}
-          />
-        )}
       </div>
       <FrameButtons
         frames={frames}
@@ -142,7 +150,8 @@ function App() {
         <button onClick={() => setState({ isAnimating: !isAnimating })}>
           {isAnimating ? "Stop" : "Play"}
         </button>
-        <button onClick={clear}>CLEAR</button>
+        <button onClick={clear}>Clear</button>
+        <button onClick={confirmReset}>Reset</button>
         <button onClick={() => render(frames, frameRate)}>Capture</button>
         <input
           type="range"

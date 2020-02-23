@@ -13,7 +13,7 @@ A simple animation app built in react.
 - [ ] rendering status while exporting
 - [x] Undo
 - [x] Change frame rate
-- [ ] Edit an existing frame
+- [x] Edit an existing frame
 - [ ] Change resolution
 - [ ] Change default color
 - [ ] Fork existing animation
@@ -21,6 +21,7 @@ A simple animation app built in react.
 - [ ] Delete frame
 - [ ] copy/paste area of a frame
 - [ ] fill area of a frame
+- [ ] Move frame (drag & drop)
 
 ## Examples
 
