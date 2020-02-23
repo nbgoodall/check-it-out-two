@@ -1,7 +1,7 @@
-import useEpicState from "./useEpicState";
-
 import html2canvas from "html2canvas";
 import GIF from "gif.js.optimized";
+
+import useEpicState from "./useEpicState";
 
 function useGifRenderer() {
   const [state, setState] = useEpicState({
