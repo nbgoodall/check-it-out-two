@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Display from "../Display";
 import FrameButtons from "../FrameButtons";
-import render from "../../libs/utils/renderGif";
+import useGifRenderer from "../../libs/hooks/useGifRenderer";
 import useEpicState from "../../libs/hooks/useEpicState";
+
+import loadingGif from "../../assets/loading.gif";
 
 const initialState = new Array(20).fill(new Array(20).fill("#ffffff"));
 
@@ -30,6 +32,12 @@ function App() {
     frames,
     frameRate
   } = state;
+
+  const { status, isRendering, render } = useGifRenderer();
+
+  useEffect(() => {
+    console.log({ status, isRendering });
+  }, [status]);
 
   function handleClick(x, y) {
     let newColor = display[y][x] === color ? "#FFFFFF" : color;
@@ -99,6 +107,10 @@ function App() {
       onMouseDown={() => setState({ isMouseDown: true })}
       onMouseUp={() => setState({ isMouseDown: false, selectionColor: null })}
     >
+      <dialog className="loading-dialog" open={isRendering}>
+        <img alt="loading" src={loadingGif} />
+        <h1>{status}</h1>
+      </dialog>
       <div className="display-container">
         <Display
           className={"active-container"}
