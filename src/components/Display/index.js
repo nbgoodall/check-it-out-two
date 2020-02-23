@@ -13,8 +13,8 @@ function Display({ isMouseDown, display, handleClick, className, active }) {
               key={x + color}
               className="pixel"
               style={{ "--color": color }}
-              onMouseOver={() => isMouseDown && handleMouseEvent(x, y)}
-              onClick={() => handleMouseEvent(x, y)}
+              onMouseEnter={ e => isMouseDown && handleMouseEvent(x, y) }
+              onMouseDown={() => handleMouseEvent(x, y)}
             ></div>
           ))}
         </div>
