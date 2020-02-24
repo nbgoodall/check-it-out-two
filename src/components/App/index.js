@@ -9,7 +9,7 @@ import reorderArray from "../../libs/utils/reorderArray";
 
 import loadingGif from "../../assets/loading.gif";
 
-const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("#ffffffff"));
+const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("transparent"));
 
 const BLANK_IMAGE =
   "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
@@ -88,9 +88,8 @@ function App() {
   }
 
   useEffect(() => {
-    let id;
     if (isAnimating) {
-      id = setTimeout(() => {
+      const id = setTimeout(() => {
         if (currentFrameIndex < frames.length - 1) {
           setState({ currentFrameIndex: currentFrameIndex + 1 });
 
@@ -98,10 +97,10 @@ function App() {
         }
         setState({ currentFrameIndex: 0 });
       }, frameRate);
+      return () => {
+        clearInterval(id);
+      };
     }
-    return () => {
-      clearInterval(id);
-    };
   }, [isAnimating, currentFrameIndex, frames, frameRate]);
 
   function addFrame({ duplicate } = {}) {
@@ -121,24 +120,23 @@ function App() {
   }
 
   function reorderFrames(index, position) {
-    let newFrameIndex = currentFrameIndex
+    let newFrameIndex = currentFrameIndex;
 
     if (position <= currentFrameIndex && index > currentFrameIndex) {
-      newFrameIndex++
+      newFrameIndex++;
     }
 
     if (index < currentFrameIndex) {
-      newFrameIndex--
-    }
-    else if (index === currentFrameIndex) {
-      newFrameIndex = position
+      newFrameIndex--;
+    } else if (index === currentFrameIndex) {
+      newFrameIndex = position;
     }
 
     return setState({
       frames: reorderArray(frames, index, position),
       frameImages: reorderArray(frameImages, index, position),
       currentFrameIndex: newFrameIndex
-    })
+    });
   }
 
   function deleteFrame() {
@@ -152,9 +150,8 @@ function App() {
         ...frameImages.slice(currentFrameIndex + 1)
       ],
       currentFrameIndex: Math.max(0, currentFrameIndex - 1)
-    })
+    });
   }
-
 
   function confirmReset() {
     let confirmText = "Are you sure? This will reset e-v-e-r-y-t-h-i-n-g.";
@@ -212,7 +209,9 @@ function App() {
       />
       <div>
         <button onClick={addFrame}>Add Frame</button>
-        <button onClick={ frames.length > 1 ? deleteFrame : clear }>Delete Frame</button>
+        <button onClick={frames.length > 1 ? deleteFrame : clear}>
+          Delete Frame
+        </button>
         <button onClick={() => addFrame({ duplicate: true })}>Duplicate</button>
         <input
           type="color"
@@ -224,7 +223,7 @@ function App() {
         </button>
         <button onClick={clear}>Clear</button>
         <button onClick={confirmReset}>Reset</button>
-        <button onClick={() => render(frameImages, frameRate)}>Capture</button>
+        <button onClick={() => render(frames, frameRate)}>Capture</button>
         <input
           type="range"
           value={frameRate}

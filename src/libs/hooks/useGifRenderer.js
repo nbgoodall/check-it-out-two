@@ -1,5 +1,5 @@
-import html2canvas from "html2canvas";
 import GIF from "gif.js.optimized";
+import { frameArrayToDataUrl } from "../utils/drawingFunctions";
 
 import useEpicState from "./useEpicState";
 
@@ -40,18 +40,16 @@ function useGifRenderer() {
     gif.render();
   }
 
-  async function render(frameImages, frameRate) {
+  async function render(frames, frameRate, backgroundColor) {
     setState({ status: "creating images", isRendering: true });
     const images = await Promise.all(
-      frameImages.map(frameImage => {
+      frames.map(frame => {
         return new Promise((resolve, reject) => {
-          const img = document.createElement("img");
-          img.src = frameImage;
-          img.onload = function() {
+          const dataUrl = frameArrayToDataUrl({ frame, backgroundColor });
+          const image = document.createElement("img");
+          image.src = dataUrl;
+          image.onload = function() {
             resolve(this);
-          };
-          img.onerror = function() {
-            reject("error loading image");
           };
         });
       })
