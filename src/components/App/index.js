@@ -223,7 +223,7 @@ function App() {
         </button>
         <button onClick={clear}>Clear</button>
         <button onClick={confirmReset}>Reset</button>
-        <button onClick={() => render(frames, frameRate)}>Capture</button>
+        <button onClick={() => render(frames, frameRate)}>Export to GIF</button>
         <input
           type="range"
           value={frameRate}

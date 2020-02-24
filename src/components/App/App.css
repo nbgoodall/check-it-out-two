@@ -19,7 +19,7 @@
 }
 .display-container {
   position: relative;
-  /*box-sizing: border-box;*/
+  cursor: crosshair;
 }
 .active-container {
   border: 10px dashed yellow;
