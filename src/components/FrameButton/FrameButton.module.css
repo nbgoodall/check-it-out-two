@@ -1,0 +1,31 @@
+.button {
+  border: 0px;
+  min-width: 46px;
+  height: 46px;
+  padding: 0;
+  box-sizing: initial;
+  margin: 5px 2px;
+  transition: padding 0.2s;
+  background-color: transparent;
+}
+
+.button div {
+  pointer-events: none;
+  background-color: #fff;
+  border: 3px solid var(--color, #00000047);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:hover {
+  cursor: move;
+}
+
+.frameDisplay {
+  width: auto;
+  height: 40px;
+  display: block;
+  pointer-events: none;
+}

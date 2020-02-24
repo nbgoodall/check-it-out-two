@@ -1,18 +1,24 @@
-import React from "react";
-import css from "./FrameButtons.module.css";
+import React, { useState } from "react";
 
-function FrameButtons({ frames, setCurrentFrameIndex, currentFrameIndex }) {
+import css from "./FrameButtons.module.css";
+import FrameButton from "../FrameButton";
+
+function FrameButtons({ images, setCurrentFrameIndex, currentFrameIndex, reorder }) {
+  const [dragIndex, setDragIndex] = useState(null)
+
   return (
-    <div>
-      {frames.map((_, i) => (
-        <button
+    <div className={css.buttonContainer}>
+      {images.map((image, i) => (
+        <FrameButton
+          reorder={ reorder }
           key={i}
-          className={css.button}
-          onClick={() => setCurrentFrameIndex(i)}
-          style={{ "--color": currentFrameIndex === i ? "yellowgreen" : "" }}
-        >
-          frame {i + 1}
-        </button>
+          image={image}
+          i={i}
+          setDragIndex={setDragIndex}
+          dragIndex={dragIndex}
+          setCurrentFrameIndex={setCurrentFrameIndex}
+          currentFrameIndex={currentFrameIndex}
+        />
       ))}
     </div>
   );
