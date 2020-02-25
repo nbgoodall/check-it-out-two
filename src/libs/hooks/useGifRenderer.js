@@ -1,5 +1,5 @@
 import GIF from "gif.js.optimized";
-import { frameArrayToDataUrl } from "../utils/drawingFunctions";
+import { frameArrayToCanvas } from "../utils/drawingFunctions";
 
 import useEpicState from "./useEpicState";
 
@@ -43,16 +43,7 @@ function useGifRenderer() {
   async function render(frames, frameRate, backgroundColor) {
     setState({ status: "creating images", isRendering: true });
     const images = await Promise.all(
-      frames.map(frame => {
-        return new Promise((resolve, reject) => {
-          const dataUrl = frameArrayToDataUrl({ frame, backgroundColor });
-          const image = document.createElement("img");
-          image.src = dataUrl;
-          image.onload = function() {
-            resolve(this);
-          };
-        });
-      })
+      frames.map(frame => frameArrayToCanvas({ frame, backgroundColor }))
     );
     createGif(images, frameRate);
   }
