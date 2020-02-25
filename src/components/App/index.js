@@ -9,6 +9,8 @@ import reorderArray from "../../libs/utils/reorderArray";
 
 import loadingGif from "../../assets/loading.gif";
 
+const BACKGROUND_COLOR = "transparent";
+
 const BLANK_DISPLAY = new Array(20).fill(new Array(20).fill("transparent"));
 
 const BLANK_IMAGE =
@@ -68,7 +70,7 @@ function App() {
   function handleClick(x, y) {
     const display = frames[currentFrameIndex];
 
-    let newColor = display[y][x] === color ? "#ffffffff" : color;
+    let newColor = display[y][x] === color ? BACKGROUND_COLOR : color;
 
     if (!isMouseDown && !selectionColor) {
       setState({ selectionColor: newColor });
@@ -84,6 +86,21 @@ function App() {
       ...display.slice(y + 1)
     ];
 
+    return setCurrentFrame(nextDisplay);
+  }
+
+  function handleFill({ x, y, width, height }) {
+    const nextDisplay = [
+      ...frames[currentFrameIndex].slice(0, y),
+      ...frames[currentFrameIndex]
+        .slice(y, y + height)
+        .map(row => [
+          ...row.slice(0, x),
+          ...row.slice(x, x + width).fill(color),
+          ...row.slice(x + width)
+        ]),
+      ...frames[currentFrameIndex].slice(y + height)
+    ];
     return setCurrentFrame(nextDisplay);
   }
 
@@ -199,6 +216,7 @@ function App() {
           color={color}
           handleClick={handleClick}
           saveImage={setCurrentFrameImage}
+          handleFill={handleFill}
         />
       </div>
       <FrameButtons
