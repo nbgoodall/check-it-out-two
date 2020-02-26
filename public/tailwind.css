@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+
+/* Custom CSS here*/
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+input[type=color] {
+  -webkit-appearance: none;
+  @apply p-0;
+}
+
+input[type=color]::-webkit-color-swatch-wrapper {
+  @apply p-0;
+}
+
+input[type=color]::-webkit-color-swatch {
+  @apply border-0;
+}
+
+
+@tailwind utilities;
