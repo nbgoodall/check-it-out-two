@@ -1,6 +1,14 @@
+const { cursor } = require('tailwindcss/defaultTheme')
+
 module.exports = {
   theme: {
-    extend: {},
+    extend: {
+      cursor: {
+        ...cursor,
+        crosshair: 'crosshair',
+        'zoom-in': 'zoom-in'
+      }
+    },
   },
   variants: {
     opacity: ['responsive', 'hover', 'focus', 'disabled'],

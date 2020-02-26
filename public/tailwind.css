@@ -21,5 +21,4 @@ input[type=color]::-webkit-color-swatch {
   @apply border-0;
 }
 
-
 @tailwind utilities;
