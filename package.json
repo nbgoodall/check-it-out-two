@@ -25,6 +25,7 @@
     "tailwindcss": "^1.2.0"
   },
   "dependencies": {
+    "canvas2svg": "^1.0.16",
     "gif.js.optimized": "^1.0.1",
     "lodash.throttle": "^4.1.1",
     "sortablejs": "^1.10.2"
