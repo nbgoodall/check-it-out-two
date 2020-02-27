@@ -1,4 +1,6 @@
 <script>
+  import { Overlay } from 'components'
+
   import {
     Settings,
     Tools,
@@ -6,8 +8,10 @@
     FrameRate,
     Actions,
     Controls,
-    Frames
+    Frames,
+    Export
   } from 'sections'
+
 </script>
 
 <div class="p-3 pt-16 flex justify-center">
