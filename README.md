@@ -17,7 +17,7 @@ A simple animation app built in react.
 - [ ] Change resolution
 - [ ] Change default color
 - [ ] Fork existing animation
-- [ ] Save
+- [x] Save
 - [x] Delete frame
 - [ ] copy/paste area of a frame
 - [ ] fill area of a frame
