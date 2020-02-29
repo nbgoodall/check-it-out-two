@@ -15,13 +15,17 @@ A simple animation app built in react.
 - [x] Change frame rate
 - [x] Edit an existing frame
 - [ ] Change resolution
-- [ ] Change default color
+- [x] Change default color
 - [ ] Fork existing animation
 - [x] Save
 - [x] Delete frame
 - [ ] copy/paste area of a frame
 - [ ] fill area of a frame
 - [x] Move frame (drag & drop)
+- [ ] Color picker
+- [ ] Image import
+- [ ] GIF import
+- [ ] Layers
 
 ## Examples
 
