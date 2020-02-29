@@ -1,6 +1,4 @@
 <script>
-  import { Overlay } from 'components'
-
   import {
     Settings,
     Tools,
