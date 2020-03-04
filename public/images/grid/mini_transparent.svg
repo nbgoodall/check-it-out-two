@@ -1,11 +1,11 @@
-<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M30 0H15V15H30V0Z" fill="#E2E8F0"/>
-  <path d="M15 0H0V15H15V0Z" fill="white"/>
-  <path d="M15 15H0V30H15V15Z" fill="#E2E8F0"/>
-  <path d="M30 30H15V45H30V30Z" fill="#E2E8F0"/>
-  <path d="M15 30H0V45H15V30Z" fill="white"/>
-  <path d="M30 15H15V30H30V15Z" fill="white"/>
-  <path d="M45 15H30V30H45V15Z" fill="#E2E8F0"/>
-  <path d="M45 30H30V45H45V30Z" fill="white"/>
-  <path d="M45 0H30V15H45V0Z" fill="white"/>
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="10" height="10" fill="#E2E8F0"/>
+  <rect x="20" width="10" height="10" fill="#E2E8F0"/>
+  <rect x="10" width="10" height="10" fill="white"/>
+  <rect y="20" width="10" height="10" fill="#E2E8F0"/>
+  <rect y="10" width="10" height="10" fill="white"/>
+  <rect x="10" y="10" width="10" height="10" fill="#E2E8F0"/>
+  <rect x="20" y="20" width="10" height="10" fill="#E2E8F0"/>
+  <rect x="10" y="20" width="10" height="10" fill="white"/>
+  <rect x="20" y="10" width="10" height="10" fill="white"/>
 </svg>

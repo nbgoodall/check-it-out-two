@@ -22,10 +22,11 @@ A simple animation app built in react.
 - [ ] copy/paste area of a frame
 - [ ] fill area of a frame
 - [x] Move frame (drag & drop)
-- [ ] Color picker
-- [ ] Image import
+- [x] Color picker
+- [x] Image import
 - [ ] GIF import
 - [ ] Layers
+- [ ] Repeat frame n times (slo-mo effect)
 
 ## Examples
 
