@@ -7,6 +7,7 @@
     Actions,
     Controls,
     Frames,
+    Layers,
     Export
   } from 'sections'
 
@@ -30,8 +31,10 @@
       <Display />
     </div>
 
-    <div class="row-start-2">
+    <div class="row-start-2 flex flex-col">
       <FrameRate />
+
+      <Layers />
     </div>
     <!-- End second row -->
 
