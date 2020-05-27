@@ -2,20 +2,13 @@
 
 ### Reasonable
 
-Are layers the right abstraction? E.g. Figma doesn't have layers, but each entity forms its own layer, like drawing a box or a line. But then you don't have pixels a la Photoshop...
-
-It's a question of grouping — do you group by connected pixels and lines/shapes, or make groups explicit with layers?
-
-What about groups instead? Entities? Easily group them?!
-
-Using a tool, automatically create a layer, and make it super easy to join them.
-
 What does fill do...?
 
 Pointer click:
   On layer: select
   Outside: create selection rectangle
 
+- [ ] Selection rectangle
 - [ ] Show faded layers outside canvas bounds.
 - [ ] Resize & rotate layers! This'd be epic omg.
 - [ ] Fill frame/crop to edges on export for full-sized icon/gif, etc.
