@@ -7,8 +7,7 @@
     Actions,
     Controls,
     Frames,
-    Layers,
-    Export
+    Layers
   } from 'sections'
 
 </script>
