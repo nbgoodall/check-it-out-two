@@ -10,6 +10,7 @@ Pointer click:
 
 - [x] Duplicate before or after current frame... (i.e., set the next frame's position)
 - [ ] Selection rectangle
+- [ ] Combine layer bounds when selecting multiple
 - [ ] Show faded layers outside canvas bounds.
 - [ ] Resize & rotate layers! This'd be epic omg.
 - [ ] Fill frame/crop to edges on export for full-sized icon/gif, etc.
@@ -38,6 +39,8 @@ Pointer click:
 - [ ] Click through layers - hover & active need to be the layer pixels, not the bounds...
 - [ ] Rectangle tool *and* square tool
 - [ ] Tool side menus for extra options, like circle and rectangle w/ or w/o fill.
+- [ ] Layer previews (and maybe more intelligent names...?)
+- [ ] Custom right-click menu with options
 
 ### Advanced
 
@@ -46,3 +49,4 @@ Pointer click:
 - [ ] Basic animation automation. Select layer start & end position, the number of frames and whether it should create new frames or edit existing ones... This would be epic.
 - [ ] Import GIFs
 - [ ] Componenets; re-usable sections/sprites, etc. you can just drop-in.
+- [ ] Audio tracks

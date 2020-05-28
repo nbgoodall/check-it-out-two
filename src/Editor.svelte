@@ -3,7 +3,7 @@
     Settings,
     Tools,
     Display,
-    FrameRate,
+    FrameSettings,
     Actions,
     Controls,
     Frames,
@@ -31,7 +31,7 @@
     </div>
 
     <div class="row-start-2 flex flex-col">
-      <FrameRate />
+      <FrameSettings />
 
       <Layers />
     </div>
