@@ -25,10 +25,9 @@ Pointer click:
 - [ ] Copy & paste across projects!
 - [ ] Undo & redo
 - [x] Keyboard shortcuts for tools — change layer position, etc.
-- [ ] Repeat frame n times (slo-mo effect)
-- [ ] Skip frame
+- [x] Repeat frame n times (slo-mo effect)
+- [x] Skip frame (set repeat to 0...)
 - [ ] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
-- [ ] Fill tool to bounds of entire frame — min/max of all layers
 - [ ] Favicon GIF or still frame...
 - [ ] Watermarks
 - [ ] Responsive!
