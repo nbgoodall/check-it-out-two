@@ -8,6 +8,7 @@ Pointer click:
   On layer: select
   Outside: create selection rectangle
 
+- [x] Duplicate before or after current frame... (i.e., set the next frame's position)
 - [ ] Selection rectangle
 - [ ] Show faded layers outside canvas bounds.
 - [ ] Resize & rotate layers! This'd be epic omg.
@@ -35,6 +36,8 @@ Pointer click:
 - [ ] Merge layers — intersect, union, subtract, exclude
 - [ ] Eyedropper
 - [ ] Click through layers - hover & active need to be the layer pixels, not the bounds...
+- [ ] Rectangle tool *and* square tool
+- [ ] Tool side menus for extra options, like circle and rectangle w/ or w/o fill.
 
 ### Advanced
 
