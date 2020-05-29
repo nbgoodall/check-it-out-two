@@ -8,17 +8,17 @@ Pointer click:
   On layer: select
   Outside: create selection rectangle
 
+- [ ] Join layers
 - [ ] Undo & redo — needs history :S
 - [ ] Fix ellipse to work with odd values
 - [ ] Combine layer bounds when selecting multiple
 - [ ] Resize & rotate layers! This'd be epic omg.
 - [ ] Rectangle tool *and* square tool
 - [ ] Tool side menus for extra options, like circle and rectangle w/ or w/o fill.
-- [ ] Group layers
-- [ ] Merge layers — intersect, union, subtract, exclude
 - [ ] Show faded layers outside canvas bounds.
 - [ ] Layer previews (and maybe more intelligent names...?)
 - [ ] Fix image import with new hashmaps...
+- [ ] Group layers
 - [ ] Better eraser tool...
 - [ ] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
 - [ ] Fill frame/crop to edges on export for full-sized icon/gif, etc.
