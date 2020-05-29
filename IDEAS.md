@@ -8,6 +8,7 @@ Pointer click:
   On layer: select
   Outside: create selection rectangle
 
+- [ ] Fix ellipse to work with odd values
 - [x] Duplicate before or after current frame... (i.e., set the next frame's position)
 - [ ] Selection rectangle
 - [ ] Combine layer bounds when selecting multiple
@@ -22,10 +23,8 @@ Pointer click:
 - [ ] Change export resolution (currently 500x500)
 - [x] Highlight layer on hover (also the layer panel)
 - [ ] Duplicate & delete layers
-- [ ] Copy & paste layers
-- [ ] Copy & paste selections (drag to select...)
-- [ ] Copy & paste across projects!
-- [ ] Undo & redo
+- [x] Copy & paste layers (works across frames and projects, too 🤓)
+- [ ] Undo & redo — needs history :S
 - [x] Keyboard shortcuts for tools — change layer position, etc.
 - [x] Repeat frame n times (slo-mo effect)
 - [x] Skip frame (set repeat to 0...)
