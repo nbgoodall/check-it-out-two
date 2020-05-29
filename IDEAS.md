@@ -8,7 +8,6 @@ Pointer click:
   On layer: select
   Outside: create selection rectangle
 
-- [ ] Join layers
 - [ ] Undo & redo — needs history :S
 - [ ] Fix ellipse to work with odd values
 - [ ] Combine layer bounds when selecting multiple
@@ -30,7 +29,9 @@ Pointer click:
 - [ ] Watermarks
 - [ ] Responsive!
 - [ ] Custom right-click menu with options
+- [ ] Triple click to select individual pixels within a layer...
 - [-] Eyedropper (color selector comes with one already...)
+- [x] Join layers :O
 - [x] Duplicate before or after current frame... (i.e., set the next frame's position)
 - [x] Selection rectangle
 - [x] Escape key to exit tool
@@ -44,10 +45,11 @@ Pointer click:
 
 ### Advanced
 
-- [ ] Gradients...
+- [ ] Color gradients...
 - [ ] Text... create a pixel font that you can type in.
 - [ ] Basic animation automation. Select layer start & end position, the number of frames and whether it should create new frames or edit existing ones... This would be epic.
 - [ ] Import GIFs
 - [ ] Componenets; re-usable sections/sprites, etc. you can just drop-in.
 - [ ] Audio tracks
 - [ ] Custom colour selector...
+- [ ] Mouse movement interpolation, like game projectiles — fill in the gaps...
