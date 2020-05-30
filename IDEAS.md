@@ -2,14 +2,10 @@
 
 ### Reasonable
 
-What does fill do...?
-
-Pointer click:
-  On layer: select
-  Outside: create selection rectangle
-
 - [ ] Undo & redo — needs history :S
+- [ ] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
 - [ ] Fix ellipse to work with odd values
+- [ ] A better ID function for any entity — project, frame, layer – that's idiot (i.e., Nick) proof
 - [ ] Combine layer bounds when selecting multiple
 - [ ] Resize & rotate layers! This'd be epic omg.
 - [ ] Rectangle tool *and* square tool
@@ -30,7 +26,7 @@ Pointer click:
 - [ ] Responsive!
 - [ ] Custom right-click menu with options
 - [ ] Triple click to select individual pixels within a layer...
-- [-] Eyedropper (color selector comes with one already...)
+- [ ] Eyedropper (color selector comes with one already, but can make a better one fo sho).
 - [x] Join layers :O
 - [x] Duplicate before or after current frame... (i.e., set the next frame's position)
 - [x] Selection rectangle
