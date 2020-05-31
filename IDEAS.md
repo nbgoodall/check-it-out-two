@@ -2,7 +2,12 @@
 
 ### Reasonable
 
-- [ ] Undo & redo — needs history :S
+- [-] Undo & redo
+  - Tools — DrawPixels
+  - Sort layers
+  - Add, delete & duplicate frames
+  - Sort frames
+  - Clear, Reset
 - [ ] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
 - [ ] Fix ellipse to work with odd values
 - [ ] A better ID function for any entity — project, frame, layer – that's idiot (i.e., Nick) proof
