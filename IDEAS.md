@@ -3,7 +3,6 @@
 ### Reasonable
 
 - [-] Undo & redo
-  - Tools — DrawPixels
   - Sort layers
   - Add, delete & duplicate frames
   - Sort frames
