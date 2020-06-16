@@ -7,7 +7,8 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
-- [ ] Include active frame ID in history — do in the history class itself?
+- [ ] Delete layer if completely erased
+- [ ] Include active frame ID in history — do in the history class itself? Also current tool...
 - [ ] Fix ellipse to work with odd values
 - [ ] A better ID function for any entity — project, frame, layer – that's idiot (i.e., Nick) proof
 - [ ] Combine layer bounds when selecting multiple
