@@ -7,6 +7,7 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
+- [ ] Include active frame ID in history — do in the history class itself?
 - [ ] Fix ellipse to work with odd values
 - [ ] A better ID function for any entity — project, frame, layer – that's idiot (i.e., Nick) proof
 - [ ] Combine layer bounds when selecting multiple
@@ -54,3 +55,4 @@
 - [ ] Audio tracks
 - [ ] Custom colour selector...
 - [ ] Mouse movement interpolation, like game projectiles — fill in the gaps...
+- [ ] Blur effect for moving layers...
