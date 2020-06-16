@@ -18,8 +18,8 @@
 - [ ] Layer previews (and maybe more intelligent names...?)
 - [ ] Fix image import with new hashmaps...
 - [ ] Group layers
-- [ ] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
 - [ ] Fill frame/crop to edges on export for full-sized icon/gif, etc.
+- [ ] Custom color palettes
 - [ ] Fix transparent backgrounds on export
 - [ ] Opacity (alpha channels however that'll work)
 - [ ] Saving indicator & alert if exit while saving
@@ -30,6 +30,7 @@
 - [ ] Custom right-click menu with options
 - [ ] Triple click to select individual pixels within a layer...
 - [ ] Eyedropper (color selector comes with one already, but can make a better one fo sho).
+- [x] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
 - [x] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
 - [x] Join layers :O
 - [x] Duplicate before or after current frame... (i.e., set the next frame's position)
