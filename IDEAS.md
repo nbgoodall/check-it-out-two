@@ -7,7 +7,6 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
-- [ ] Eraser
 - [ ] Fix ellipse to work with odd values
 - [ ] A better ID function for any entity — project, frame, layer – that's idiot (i.e., Nick) proof
 - [ ] Combine layer bounds when selecting multiple
@@ -30,6 +29,7 @@
 - [ ] Custom right-click menu with options
 - [ ] Triple click to select individual pixels within a layer...
 - [ ] Eyedropper (color selector comes with one already, but can make a better one fo sho).
+- [x] Eraser
 - [x] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
 - [x] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
 - [x] Join layers :O
