@@ -7,7 +7,8 @@
     Actions,
     Controls,
     Frames,
-    Layers
+    Layers,
+    Colors
   } from 'sections'
 
 </script>
@@ -23,6 +24,10 @@
 
     <!-- Second row -->
     <div class="row-start-2 flex justify-end items-start">
+      <Layers />
+
+      <div class="w-3" />
+
       <Tools  />
     </div>
 
@@ -33,7 +38,7 @@
     <div class="row-start-2 flex flex-col">
       <FrameSettings />
 
-      <Layers />
+      <Colors />
     </div>
     <!-- End second row -->
 

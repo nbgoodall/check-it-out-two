@@ -7,7 +7,7 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
-- [ ] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
+- [ ] Eraser
 - [ ] Fix ellipse to work with odd values
 - [ ] A better ID function for any entity — project, frame, layer – that's idiot (i.e., Nick) proof
 - [ ] Combine layer bounds when selecting multiple
@@ -18,7 +18,6 @@
 - [ ] Layer previews (and maybe more intelligent names...?)
 - [ ] Fix image import with new hashmaps...
 - [ ] Group layers
-- [ ] Better eraser tool...
 - [ ] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
 - [ ] Fill frame/crop to edges on export for full-sized icon/gif, etc.
 - [ ] Fix transparent backgrounds on export
@@ -31,6 +30,7 @@
 - [ ] Custom right-click menu with options
 - [ ] Triple click to select individual pixels within a layer...
 - [ ] Eyedropper (color selector comes with one already, but can make a better one fo sho).
+- [x] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
 - [x] Join layers :O
 - [x] Duplicate before or after current frame... (i.e., set the next frame's position)
 - [x] Selection rectangle
