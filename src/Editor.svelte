@@ -23,7 +23,7 @@
     <!-- End first row -->
 
     <!-- Second row -->
-    <div class="row-start-2 flex justify-end items-start">
+    <div class="row-start-2 flex justify-end items-start" style="max-height: 500px;">
       <Layers />
 
       <div class="w-3" />
