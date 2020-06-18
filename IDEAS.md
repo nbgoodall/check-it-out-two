@@ -7,6 +7,7 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
+- [ ] Double click to enter pixel mode to select specfic parts of a layer...
 - [ ] Delete layer if completely erased
 - [ ] Include active frame ID in history — do in the history class itself? Also current tool...
 - [ ] Fix ellipse to work with odd values
