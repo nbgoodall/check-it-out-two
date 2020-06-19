@@ -7,6 +7,7 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
+- [ ] Fix saveImage layer order
 - [ ] Double click to enter pixel mode to select specfic parts of a layer...
 - [ ] Delete layer if completely erased
 - [ ] Include active frame ID in history — do in the history class itself? Also current tool...
@@ -28,6 +29,7 @@
 - [ ] Change export resolution (currently 500x500)
 - [ ] Favicon GIF or still frame...
 - [ ] Watermarks
+- [ ] Collapse/separate sections of a GIF (i.e., lots of frames together)
 - [ ] Responsive!
 - [ ] Custom right-click menu with options
 - [ ] Triple click to select individual pixels within a layer...
