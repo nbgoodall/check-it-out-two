@@ -8,6 +8,7 @@
   - Sort frames
   - Clear, Reset
 - [ ] Fix saveImage layer order
+- [ ] Shift to square line/circle/square
 - [ ] Double click to enter pixel mode to select specfic parts of a layer...
 - [ ] Delete layer if completely erased
 - [ ] Include active frame ID in history — do in the history class itself? Also current tool...
@@ -19,7 +20,6 @@
 - [ ] Tool side menus for extra options, like circle and rectangle w/ or w/o fill.
 - [ ] Show faded layers outside canvas bounds.
 - [ ] Layer previews (and maybe more intelligent names...?)
-- [ ] Fix image import with new hashmaps...
 - [ ] Group layers
 - [ ] Fill frame/crop to edges on export for full-sized icon/gif, etc.
 - [ ] Custom color palettes
@@ -34,6 +34,7 @@
 - [ ] Custom right-click menu with options
 - [ ] Triple click to select individual pixels within a layer...
 - [ ] Eyedropper (color selector comes with one already, but can make a better one fo sho).
+- [x] Fix image import with new hashmaps...
 - [x] Eraser
 - [x] Better colour management.. Don't add all colours when you slide :( Project colours should only be the one's actually used
 - [x] Re-organise layout — colours on right, layers next to the tools on left. Colours should be a block without the silly sliding shit.
