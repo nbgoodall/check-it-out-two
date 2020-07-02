@@ -7,7 +7,10 @@
   - Add, delete & duplicate frames
   - Sort frames
   - Clear, Reset
+- [ ] Switch to IndexedDB for file storage... :O
 - [ ] Shift to square line/circle/square
+- [ ] Link duplicated layers across frames — change one; change them all
+- [ ] Layer drop shadows!
 - [ ] Double click to enter pixel mode to select specfic parts of a layer...
 - [ ] Include active frame ID in history — do in the history class itself? Also current tool...
 - [ ] Fix ellipse to work with odd values
